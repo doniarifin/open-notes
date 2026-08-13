@@ -3,6 +3,7 @@ import 'dart:developer' as developer;
 import 'package:open_notes/data/repository/note_repository.dart';
 import 'package:open_notes/screens/note_screen.dart';
 import 'package:open_notes/screens/setting_screen.dart';
+import 'package:open_notes/widgets/square_list.dart';
 
 import '../models/note.dart';
 
@@ -90,14 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
               itemCount: notes.length,
               itemBuilder: (context, index) {
                 final note = notes[index];
-                return ListTile(
-                  title: Text(note.title),
-                  subtitle: Text(
-                   note.description,
-                   maxLines: 1,
-                   overflow: TextOverflow.ellipsis,
-                  ),
-                );
+                return SquareList(title: note.title, description: note.description);
               },
           );
         },

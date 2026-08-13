@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:open_notes/data/repository/note_repository.dart';
 import 'package:open_notes/models/note.dart';
+import 'package:open_notes/widgets/edit_note.dart';
 
 class NoteEditScreen extends StatefulWidget{
   const NoteEditScreen({
@@ -19,8 +20,6 @@ class NoteEditScreen extends StatefulWidget{
 class _NoteEditScreen extends State<NoteEditScreen>{
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descController = TextEditingController();
-
-  late NoteRepository _noteRepository;
 
   void _saveNotes() async {
     final title = _titleController.text.trim();
@@ -64,41 +63,7 @@ class _NoteEditScreen extends State<NoteEditScreen>{
           )
         ],
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          // spacing: 12,
-          children: [
-            Expanded(
-                child: ListView(
-                  children: [
-                    TextField(
-                      controller: _titleController,
-                      decoration: InputDecoration(
-                          hintText: 'Title',
-                          border: OutlineInputBorder()
-                      ),
-                    ),
-                    Divider(color: Colors.transparent,),
-                    TextField(
-                      controller: _descController,
-                      keyboardType: TextInputType.multiline,
-                      // minLines: 3,
-                      maxLines: 30,
-                      // expands: true,
-                      decoration: InputDecoration(
-                          hintText: 'Type your notes',
-                          border: OutlineInputBorder()
-                      ),
-                      // scrollPhysics: const BouncingScrollPhysics(),
-                    )
-                  ],
-                )
-            )
-
-          ],
-        ),
-      ),
+      body: EditNote(titleController: _titleController, descController: _descController)
     );
   }
 }
