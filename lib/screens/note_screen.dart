@@ -3,8 +3,8 @@ import 'package:open_notes/data/repository/note_repository.dart';
 import 'package:open_notes/models/note.dart';
 import 'package:open_notes/widgets/edit_note.dart';
 
-class NoteEditScreen extends StatefulWidget{
-  const NoteEditScreen({
+class NoteScreen extends StatefulWidget{
+  const NoteScreen({
     super.key,
     required this.note,
     required this.title
@@ -14,12 +14,22 @@ class NoteEditScreen extends StatefulWidget{
   final String title;
 
   @override
-  State<StatefulWidget> createState() => _NoteEditScreen();
+  State<StatefulWidget> createState() => _NoteScreenState();
 }
 
-class _NoteEditScreen extends State<NoteEditScreen>{
+class _NoteScreenState extends State<NoteScreen>{
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descController = TextEditingController();
+
+  @override
+  void initState() {
+    if (widget.note != null) {
+      _titleController.text = widget.note!.title;
+      _descController.text = widget.note!.description;
+    }
+
+    super.initState();
+  }
 
   void _saveNotes() async {
     final title = _titleController.text.trim();
@@ -41,6 +51,32 @@ class _NoteEditScreen extends State<NoteEditScreen>{
     if (mounted) Navigator.pop(context);
   }
 
+  void _deleteNotes() async {
+    final confirm = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Delete note?'),
+        content: const Text('This note will be permanently deleted.'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, true),
+            style: TextButton.styleFrom(foregroundColor: Colors.red),
+            child: const Text('Delete'),
+          ),
+        ],
+      ),
+    );
+
+    if (confirm != true) return;
+
+    await NoteRepository.deleteNotes(widget.note!);
+    if (mounted) Navigator.pop(context);
+  }
+
   @override
   void dispose() {
     _titleController.dispose();
@@ -55,12 +91,19 @@ class _NoteEditScreen extends State<NoteEditScreen>{
       appBar: AppBar(
         title: Text(widget.title),
         actions: [
+          if (widget.note?.id != null)
+            IconButton(
+              onPressed: () {
+                _deleteNotes();
+              }, 
+              icon: Icon(Icons.delete)
+            ),
           IconButton(
               onPressed: () {
                 _saveNotes();
               },
               icon: Icon(Icons.done)
-          )
+          ),
         ],
       ),
       body: EditNote(titleController: _titleController, descController: _descController)

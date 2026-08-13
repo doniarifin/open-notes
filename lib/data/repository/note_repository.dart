@@ -13,8 +13,13 @@ class NoteRepository {
     if (note.id == null) {
       await db.insert('notes', note.toMap());
     } else {
-      await db.update('notes', note.toMap(), where: 'id : ?', whereArgs: [note.id]);
+      await db.update('notes', note.toMap(), where: 'id = ?', whereArgs: [note.id]);
     }
+  }
+
+  static Future<void> deleteNotes(Note note) async {
+    final db = await DbHelper.database;
+    await db.delete('notes', where: 'id = ?', whereArgs: [note.id]);
   }
 
 }

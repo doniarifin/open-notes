@@ -62,13 +62,14 @@ class _HomeScreenState extends State<HomeScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           await Navigator.push(context,
-            MaterialPageRoute(builder: (context) => NoteEditScreen(
+            MaterialPageRoute(builder: (context) => NoteScreen(
               title: 'New notes',
               note: null,
             ))
           );
           _refresh();
         },
+        backgroundColor: Colors.deepOrange[100],
         child: Icon(Icons.add),
       ),
       body: FutureBuilder<List<Note>>(
@@ -91,7 +92,20 @@ class _HomeScreenState extends State<HomeScreen> {
               itemCount: notes.length,
               itemBuilder: (context, index) {
                 final note = notes[index];
-                return SquareList(title: note.title, description: note.description);
+                return SquareList(
+                  title: note.title, 
+                  description: note.description,
+                  onPressed: () async {
+                    await Navigator.push(
+                      context, 
+                      MaterialPageRoute(
+                        builder: (context) => NoteScreen(note: note, title: 'Edit note'),
+                      )
+                    );
+                    _refresh();
+                  } 
+            
+                );
               },
           );
         },

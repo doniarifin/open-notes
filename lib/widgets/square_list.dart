@@ -4,23 +4,25 @@ class SquareList extends StatelessWidget{
   const SquareList({
     super.key,
     required this.title,
-    required this.description 
+    required this.description,
+    required this.onPressed
   });
 
   final String title;
   final String description;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
   return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+    padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
     child: Container(
       decoration: BoxDecoration(
         color: Colors.deepOrange[100],
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.deepOrange.withOpacity(0.15),
+            color: Colors.deepOrange.withValues(alpha: 0.15),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -29,10 +31,8 @@ class SquareList extends StatelessWidget{
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          borderRadius: BorderRadius.circular(20),
-          onTap: () {
-            // aksi pas note di-tap
-          },
+          borderRadius: BorderRadius.circular(12),
+          onTap: onPressed,
           child: Padding(
             padding: const EdgeInsets.all(16),
             child: Row(
