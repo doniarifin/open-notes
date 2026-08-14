@@ -46,7 +46,12 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(
+          widget.title,
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
+          ),
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
