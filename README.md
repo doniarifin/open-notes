@@ -58,17 +58,23 @@ flutter build ios --release
 
 ### Web
 
+To configure this project for the web, run
+```
+flutter create . --platforms web
+```
+
+then build
 ```sh
 flutter build web
 ```
 
-### Desktop (Linux / Windows / macOS)
+<!-- ### Desktop (Linux / Windows / macOS)
 
 ```sh
 flutter build linux
 flutter build windows
 flutter build macos
-```
+``` -->
 
 ## Tests
 
