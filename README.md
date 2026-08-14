@@ -1,17 +1,84 @@
 # open_notes
 
-A new Flutter project.
+A Flutter-based offline note-taking app. Notes are stored locally using SQLite (sqflite).
 
-## Getting Started
+## Requirements
 
-This project is a starting point for a Flutter application.
+- [Flutter SDK](https://docs.flutter.dev/get-started/install) (stable channel, >= 3.x)
+- VS Code / Android Studio / Xcode (for device builds)
+- A connected device or emulator (optional, for running the app)
 
-A few resources to get you started if this is your first Flutter project:
+## Setup
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+```sh
+# Install dependencies
+flutter pub get
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Run the app
+
+### Debug (hot reload)
+
+```sh
+flutter run
+```
+
+To run on a specific device, list available devices first:
+
+```sh
+flutter devices
+flutter run -d <device-id>
+```
+
+While running in debug mode, press `r` to hot-reload and `R` to hot-restart.
+
+## Build for release
+
+### Android
+
+```sh
+# APK (debug)
+flutter build apk --debug
+
+# APK (release)
+flutter build apk --release
+
+# Bundle for Play Store
+flutter build appbundle --release
+```
+
+The build output will be located at `build/app/outputs/flutter-apk/` (APK) or `build/app/outputs/bundle/` (AAB).
+
+### iOS
+
+```sh
+# (macOS only)
+flutter build ios --release
+```
+
+### Web
+
+```sh
+flutter build web
+```
+
+### Desktop (Linux / Windows / macOS)
+
+```sh
+flutter build linux
+flutter build windows
+flutter build macos
+```
+
+## Tests
+
+```sh
+flutter test
+```
+
+## Useful commands
+
+```sh
+flutter analyze        # Run the static analyzer
+flutter doctor         # Verify your Flutter setup
+```
