@@ -16,6 +16,23 @@ class SquareList extends StatelessWidget {
   final int index;
   final int totalItems;
 
+  BorderRadius _getBorderRadius(int index, int totalItems) {
+    return BorderRadius.only(
+      topLeft: index == 0
+          ? const Radius.circular(12)
+          : const Radius.circular(4),
+      topRight: index == 0
+          ? const Radius.circular(12)
+          : const Radius.circular(4),
+      bottomLeft: index == totalItems - 1
+          ? const Radius.circular(12)
+          : const Radius.circular(4),
+      bottomRight: index == totalItems - 1
+          ? const Radius.circular(12)
+          : const Radius.circular(4),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -23,20 +40,7 @@ class SquareList extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: Colors.deepOrange[100],
-          borderRadius: BorderRadius.only(
-            topLeft: index == 0
-                ? const Radius.circular(12)
-                : Radius.circular(4),
-            topRight: index == 0
-                ? const Radius.circular(12)
-                : Radius.circular(4),
-            bottomLeft: index == totalItems - 1
-                ? const Radius.circular(12)
-                : Radius.circular(4),
-            bottomRight: index == totalItems - 1
-                ? const Radius.circular(12)
-                : Radius.circular(4),
-          ),
+          borderRadius: _getBorderRadius(index, totalItems),
           boxShadow: [
             BoxShadow(
               color: Colors.deepOrange.withValues(alpha: 0.15),
@@ -48,7 +52,7 @@ class SquareList extends StatelessWidget {
         child: Material(
           color: Colors.transparent,
           child: InkWell(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: _getBorderRadius(index, totalItems),
             onTap: onPressed,
             child: Padding(
               padding: const EdgeInsets.all(16),
@@ -59,7 +63,7 @@ class SquareList extends StatelessWidget {
                     padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
                       color: Colors.deepOrange[300],
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: _getBorderRadius(index, totalItems),
                     ),
                     child: const Icon(
                       Icons.note_alt_outlined,

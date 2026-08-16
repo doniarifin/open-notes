@@ -12,6 +12,23 @@ class ListSection extends StatelessWidget {
   final String title;
   final String position;
 
+  BorderRadius _getBorderRadius(String position) {
+    return BorderRadius.only(
+      topLeft: position == 'first'
+          ? const Radius.circular(12)
+          : Radius.circular(4),
+      topRight: position == 'first'
+          ? const Radius.circular(12)
+          : Radius.circular(4),
+      bottomLeft: position == 'last'
+          ? const Radius.circular(12)
+          : Radius.circular(4),
+      bottomRight: position == 'last'
+          ? const Radius.circular(12)
+          : Radius.circular(4),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -19,20 +36,7 @@ class ListSection extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: Colors.deepOrange[100],
-          borderRadius: BorderRadius.only(
-            topLeft: position == 'first'
-                ? const Radius.circular(12)
-                : Radius.circular(4),
-            topRight: position == 'first'
-                ? const Radius.circular(12)
-                : Radius.circular(4),
-            bottomLeft: position == 'last'
-                ? const Radius.circular(12)
-                : Radius.circular(4),
-            bottomRight: position == 'last'
-                ? const Radius.circular(12)
-                : Radius.circular(4),
-          ),
+          borderRadius: _getBorderRadius(position),
           // boxShadow: [
           //   BoxShadow(
           //     color: Colors.black.withValues(alpha: 0.15),
@@ -44,7 +48,7 @@ class ListSection extends StatelessWidget {
         child: Material(
           color: Colors.transparent,
           child: InkWell(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: _getBorderRadius(position),
             onTap: () {},
             child: Padding(
               padding: const EdgeInsets.all(16),
@@ -54,7 +58,7 @@ class ListSection extends StatelessWidget {
                   Container(
                     padding: EdgeInsets.all(4),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: _getBorderRadius(position),
                       color: Colors.deepOrange[200],
                     ),
                     child: Icon(icons, size: 24),
