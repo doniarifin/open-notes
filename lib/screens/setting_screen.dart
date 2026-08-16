@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:open_notes/widgets/setting/list_section.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({super.key});
@@ -10,7 +11,6 @@ class SettingScreen extends StatelessWidget {
       onPopInvokedWithResult: (didPop, result) async {
         if (didPop) return;
 
-
         if (context.mounted) {
           Navigator.pop(context);
         }
@@ -19,15 +19,15 @@ class SettingScreen extends StatelessWidget {
         appBar: AppBar(title: Text('Setting')),
         body: ListView(
           children: [
-            ListTile(
-              leading: const Icon(Icons.auto_awesome_outlined),
-              title: Text('Theme'),
-              onTap: () {},
+            ListSection(
+              icons: Icons.auto_awesome_outlined,
+              position: 'first',
+              title: 'Theme',
             ),
-            ListTile(
-              leading: const Icon(Icons.language),
-              title: Text('Language'),
-              onTap: () {},
+            ListSection(
+              icons: Icons.language,
+              position: 'last',
+              title: 'Language',
             ),
           ],
         ),

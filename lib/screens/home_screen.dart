@@ -8,10 +8,7 @@ import 'package:open_notes/widgets/square_list.dart';
 import '../models/note.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({
-    super.key,
-    required this.title
-  });
+  const HomeScreen({super.key, required this.title});
 
   final String title;
 
@@ -34,13 +31,11 @@ class _HomeScreenState extends State<HomeScreen> {
     developer.log(notes.toString());
   }
 
-
   void _refresh() {
     setState(() {
       _loadNoteFuture();
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -48,29 +43,27 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text(
           widget.title,
-          style: TextStyle(
-            fontWeight: FontWeight.w500,
-          ),
+          style: TextStyle(fontWeight: FontWeight.w500),
         ),
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
             onPressed: () {
               Navigator.push(
-                  context,
-                MaterialPageRoute(builder: (context) => SettingScreen())
+                context,
+                MaterialPageRoute(builder: (context) => SettingScreen()),
               );
             },
-          )
+          ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          await Navigator.push(context,
-            MaterialPageRoute(builder: (context) => NoteScreen(
-              title: 'New notes',
-              note: null,
-            ))
+          await Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => NoteScreen(title: 'New notes', note: null),
+            ),
           );
           _refresh();
         },
@@ -81,37 +74,35 @@ class _HomeScreenState extends State<HomeScreen> {
         future: _notesFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return const Center(child: CircularProgressIndicator());
           }
 
           if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center (
-              child: Text('no data'),
-            );
+            return const Center(child: Text('no data'));
           }
 
           final notes = snapshot.data!;
           return ListView.builder(
-              itemCount: notes.length,
-              itemBuilder: (context, index) {
-                final note = notes[index];
-                return SquareList(
-                  title: note.title, 
-                  description: note.description,
-                  onPressed: () async {
-                    await Navigator.push(
-                      context, 
-                      MaterialPageRoute(
-                        builder: (context) => NoteScreen(note: note, title: 'Edit note'),
-                      )
-                    );
-                    _refresh();
-                  } 
-            
-                );
-              },
+            itemCount: notes.length,
+            itemBuilder: (context, index) {
+              final note = notes[index];
+              return SquareList(
+                title: note.title,
+                index: index,
+                totalItems: notes.length,
+                description: note.description,
+                onPressed: () async {
+                  await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          NoteScreen(note: note, title: 'Edit note'),
+                    ),
+                  );
+                  _refresh();
+                },
+              );
+            },
           );
         },
       ),

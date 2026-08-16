@@ -1,71 +1,63 @@
 import 'package:flutter/material.dart';
 
-class SquareList extends StatelessWidget {
-  const SquareList({
+class ListSection extends StatelessWidget {
+  const ListSection({
     super.key,
+    required this.icons,
     required this.title,
-    required this.description,
-    required this.onPressed,
-    required this.index,
-    required this.totalItems,
+    this.position = '',
   });
 
+  final IconData icons;
   final String title;
-  final String description;
-  final VoidCallback onPressed;
-  final int index;
-  final int totalItems;
+  final String position;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 2.5, horizontal: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 2.5),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.deepOrange[100],
           borderRadius: BorderRadius.only(
-            topLeft: index == 0
+            topLeft: position == 'first'
                 ? const Radius.circular(12)
                 : Radius.circular(4),
-            topRight: index == 0
+            topRight: position == 'first'
                 ? const Radius.circular(12)
                 : Radius.circular(4),
-            bottomLeft: index == totalItems - 1
+            bottomLeft: position == 'last'
                 ? const Radius.circular(12)
                 : Radius.circular(4),
-            bottomRight: index == totalItems - 1
+            bottomRight: position == 'last'
                 ? const Radius.circular(12)
                 : Radius.circular(4),
           ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.deepOrange.withValues(alpha: 0.15),
-              blurRadius: 10,
-              offset: const Offset(0, 4),
-            ),
-          ],
+          // boxShadow: [
+          //   BoxShadow(
+          //     color: Colors.black.withValues(alpha: 0.15),
+          //     blurRadius: 10,
+          //     offset: const Offset(0, 4),
+          //   ),
+          // ],
         ),
         child: Material(
           color: Colors.transparent,
           child: InkWell(
             borderRadius: BorderRadius.circular(12),
-            onTap: onPressed,
+            onTap: () {},
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    padding: const EdgeInsets.all(10),
+                    padding: EdgeInsets.all(4),
                     decoration: BoxDecoration(
-                      color: Colors.deepOrange[300],
                       borderRadius: BorderRadius.circular(12),
+                      color: Colors.deepOrange[200],
                     ),
-                    child: const Icon(
-                      Icons.note_alt_outlined,
-                      color: Colors.white,
-                      size: 24,
-                    ),
+                    child: Icon(icons, size: 24),
                   ),
                   const SizedBox(width: 12),
                   Expanded(
@@ -76,21 +68,9 @@ class SquareList extends StatelessWidget {
                           title,
                           style: const TextStyle(
                             fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black87,
+                            fontWeight: FontWeight(500),
+                            color: Colors.black,
                           ),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          description,
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.grey[700],
-                          ),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
                         ),
                       ],
                     ),
