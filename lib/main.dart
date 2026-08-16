@@ -9,15 +9,17 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  final String title = 'Open Notes';
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: title,
       theme: ThemeData(
-        colorScheme: .fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: .fromSeed(seedColor: const Color.fromARGB(255, 255, 171, 145)),
       ),
-      home: HomeScreen(title: "Open Notes"),
+      home: HomeScreen(title: title),
       routes: {
         '/setting': (context) => SettingScreen()
       },
